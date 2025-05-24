@@ -1,0 +1,70 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, TheoryForm, ExtCtrls, Menus;
+
+type
+  TForm2 = class(TForm)
+    MainMenu1: TMainMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    N4: TMenuItem;
+    N5: TMenuItem;
+    N6: TMenuItem;
+    procedure N2Click(Sender: TObject);
+      procedure N1Click(Sender: TObject);
+procedure N3Click(Sender: TObject);
+procedure N4Click(Sender: TObject);
+procedure N5Click(Sender: TObject);
+procedure N6Click(Sender: TObject);
+
+  private
+
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+uses RegisterForm, JournalForm, AboutForm, HelpForm, TestForm;
+{$R *.dfm}
+procedure TForm2.N1Click(Sender: TObject);
+begin
+  FormRegister.Show;
+end;
+
+procedure TForm2.N3Click(Sender: TObject);
+begin
+  FormJournal.Show;
+end;
+
+procedure TForm2.N2Click(Sender: TObject);
+begin
+FormRegister.Show;
+end;
+
+procedure TForm2.N4Click(Sender: TObject);
+begin
+  FormAbout.Show;
+end;
+
+procedure TForm2.N5Click(Sender: TObject);
+begin
+  FormHelp.Show;
+end;
+
+procedure TForm2.N6Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.
+
