@@ -18,6 +18,7 @@ type
     TabSheet6: TTabSheet;
     TabSheet7: TTabSheet;
     TabSheet8: TTabSheet;
+    TabSheet9: TTabSheet;
     Memo12: TMemo;
     Memo11: TMemo;
     Memo10: TMemo;
@@ -26,7 +27,7 @@ type
     Memo3: TMemo;
     Memo4: TMemo;
     Memo5: TMemo;
-    procedure FormShow(Sender: TObject);
+    Memo6: TMemo;
     procedure Button1Click(Sender: TObject);
 
   private
@@ -47,22 +48,6 @@ procedure TForm3.Button1Click(Sender: TObject);
 begin
 Form3.Hide;
 Form2.Show;
-end;
-
-procedure TForm3.FormShow(Sender: TObject);
-var
-  BasePath: string;
-begin
-  BasePath := ExtractFilePath(ParamStr(0));
-
-  Memo10.Lines.LoadFromFile(BasePath + '1_Что_такое_кодирование_информации.txt');
-  Memo11.Lines.LoadFromFile(BasePath + '2_Единицы_измерения_информации.txt');
-  Memo12.Lines.LoadFromFile(BasePath + '3_Двоичное_кодирование.txt');
-  Memo1.Lines.LoadFromFile(BasePath + '4_Кодирование_символов.txt');
-  Memo2.Lines.LoadFromFile(BasePath + '5_Кодирование_графики_и_звука.txt');
-  Memo3.Lines.LoadFromFile(BasePath + '6_Сжатие_информации.txt');
-  Memo4.Lines.LoadFromFile(BasePath + '7_Контроль_и_исправление_ошибок.txt');
-  Memo5.Lines.LoadFromFile(BasePath + 'Практическая_часть_Кодирование_информации.txt');
 end;
 
 end.

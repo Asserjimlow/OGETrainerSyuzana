@@ -103,71 +103,80 @@ var
   score, row, i: Integer;
   ExcelApp, WorkBook, WorkSheet: Variant;
 begin
-if not Assigned(FormJournal) then
-  FormJournal := TFormJournal.Create(Application);
-
   score := 0;
 
-  if Trim(Edit1.Text) = '600' then Inc(score); // Вопрос 1
+  if not Assigned(FormRegister) then
+    FormRegister := TFormRegister.Create(Application);
 
-  if RadioGroup1.ItemIndex = 1 then Inc(score); // Вопрос 2: 7 бит
+  if not Assigned(FormJournal) then
+    FormJournal := TFormJournal.Create(Application);
 
+  // Вопрос 1: Edit1 — "600"
+  if Trim(Edit1.Text) = '600' then Inc(score);
+
+  // Вопрос 2: RadioGroup1 — 7 бит (индекс 1)
+  if RadioGroup1.ItemIndex = 1 then Inc(score);
+
+  // Вопрос 3: CheckListBox1 — 1 Кбайт, 1024 байта, 8192 бита (индексы 0,1,2)
   if CheckListBox1.Checked[0] and CheckListBox1.Checked[1] and CheckListBox1.Checked[2]
-     and not CheckListBox1.Checked[3] then Inc(score); // Вопрос 3
+     and not CheckListBox1.Checked[3] then Inc(score);
 
-  if Trim(Edit2.Text) = '4096' then Inc(score); // Вопрос 4
+  // Вопрос 4: Edit2 — "4096"
+  if Trim(Edit2.Text) = '4096' then Inc(score);
 
-  if Trim(Edit3.Text) = '1101' then Inc(score); // Вопрос 5
+  // Вопрос 5: Edit3 — "1101"
+  if Trim(Edit3.Text) = '1101' then Inc(score);
 
-  if RadioGroup2.ItemIndex = 0 then Inc(score); // Вопрос 6: AF
+  // Вопрос 6: RadioGroup2 — "AF" (индекс 0)
+  if RadioGroup2.ItemIndex = 0 then Inc(score);
 
+  // Вопрос 7: CheckListBox2 — SUM(A1:A10), SUM(A1:A10) (индексы 0,1)
   if CheckListBox2.Checked[0] and CheckListBox2.Checked[1]
-     and not CheckListBox2.Checked[2] and not CheckListBox2.Checked[3] then Inc(score); // Вопрос 7
+     and not CheckListBox2.Checked[2] and not CheckListBox2.Checked[3] then Inc(score);
 
-  if ListBox1.ItemIndex = 2 then Inc(score); // Вопрос 8: 256 цветов (индекс 2)
+  // Вопрос 8: ListBox1 — правильный вариант (индекс 0)
+  if ListBox1.ItemIndex = 0 then Inc(score);
 
-  if RadioGroup3.ItemIndex = 1 then Inc(score); // Вопрос 9: Unicode (индекс 1)
+  // Вопрос 9: RadioGroup3 — "0" (индекс 0)
+  if RadioGroup3.ItemIndex = 0 then Inc(score);
 
-  if CheckListBox3.Checked[0] and CheckListBox3.Checked[1]
-     and not CheckListBox3.Checked[2] and not CheckListBox3.Checked[3] then Inc(score); // Вопрос 10
+  // Вопрос 10: CheckListBox3 — A И B (только индекс 0)
+  if CheckListBox3.Checked[0] and not CheckListBox3.Checked[1]
+     and not CheckListBox3.Checked[2] and not CheckListBox3.Checked[3] then Inc(score);
 
-  if Trim(Edit4.Text) = '32' then Inc(score); // Вопрос 11
+  // Вопрос 11: Edit4 — "5"
+  if Trim(Edit4.Text) = '5' then Inc(score);
 
-  if CheckListBox4.Checked[0] and CheckListBox4.Checked[1]
-     and not CheckListBox4.Checked[2] and not CheckListBox4.Checked[3] then Inc(score); // Вопрос 12
+  // Вопрос 12: CheckListBox4 — "Москва" и возраст>18 (0 и 2)
+  if CheckListBox4.Checked[0] and CheckListBox4.Checked[2]
+     and not CheckListBox4.Checked[1] and not CheckListBox4.Checked[3] then Inc(score);
 
-  if Trim(Edit5.Text) = '8' then Inc(score); // Вопрос 13
+  // Вопрос 13: Edit5 — "10"
+  if Trim(Edit5.Text) = '10' then Inc(score);
 
-  if CheckListBox5.Checked[0] and CheckListBox5.Checked[1]
-     and not CheckListBox5.Checked[2] and not CheckListBox5.Checked[3] then Inc(score); // Вопрос 14
+  // Вопрос 14: CheckListBox5 — увеличение X (0 и 2)
+  if CheckListBox5.Checked[0] and CheckListBox5.Checked[2]
+     and not CheckListBox5.Checked[1] and not CheckListBox5.Checked[3] then Inc(score);
 
-  if Trim(Edit6.Text) = '32' then Inc(score); // Вопрос 15
+  // Вопрос 15: Edit6 — "4"
+  if Trim(Edit6.Text) = '4' then Inc(score);
 
+  // Вопрос 16: CheckListBox6 — условные действия (0 и 2)
   if CheckListBox6.Checked[0] and CheckListBox6.Checked[2]
-     and not CheckListBox6.Checked[1] and not CheckListBox6.Checked[3] then Inc(score); // Вопрос 16
+     and not CheckListBox6.Checked[1] and not CheckListBox6.Checked[3] then Inc(score);
 
-  if ListBox2.ItemIndex = 1 then Inc(score); // Вопрос 17: JPEG (индекс 1)
+  // Вопрос 17: ListBox2 — "Условие никогда не выполнится" (индекс 0)
+  if ListBox2.ItemIndex = 0 then Inc(score);
 
-  if ListBox3.ItemIndex = 2 then Inc(score); // Вопрос 18: Контрольная сумма
+  // Вопрос 18: ListBox3 — "Сумма обнуляется в цикле" (индекс 2)
+  if ListBox3.ItemIndex = 2 then Inc(score);
 
-  if Trim(Edit7.Text) = '300' then Inc(score); // Вопрос 19
+  // Вопрос 19: Edit7 — "32"
+  if Trim(Edit7.Text) = '32' then Inc(score);
 
-  if Assigned(CheckListBox7) and (CheckListBox7.Items.Count >= 4) then
+  // Вопрос 20: CheckListBox7 — логические операции (0 и 1)
   if CheckListBox7.Checked[0] and CheckListBox7.Checked[1]
-     and not CheckListBox7.Checked[2] and not CheckListBox7.Checked[3] then
-    Inc(score); // Вопрос 20
-
-    if not Assigned(FormJournal) then
-begin
-  ShowMessage('FormJournal не создан!');
-  Exit;
-end;
-
-if not Assigned(FormJournal.StringGrid1) then
-begin
-  ShowMessage('StringGrid1 в FormJournal не создан!');
-  Exit;
-end;
+     and not CheckListBox7.Checked[2] and not CheckListBox7.Checked[3] then Inc(score);
 
   row := FormJournal.StringGrid1.RowCount;
   FormJournal.StringGrid1.RowCount := row + 1;
@@ -180,8 +189,6 @@ end;
     Cells[3, row] := IntToStr(score);
   end;
 
-
-try
   ExcelApp := CreateOleObject('Excel.Application');
   ExcelApp.Visible := False;
 
@@ -203,13 +210,11 @@ try
   WorkBook.SaveAs(ExtractFilePath(Application.ExeName) + 'journal.xlsx');
   WorkBook.Close(False);
   ExcelApp.Quit;
-except
-  on E: Exception do
-    ShowMessage('Ошибка при работе с Excel: ' + E.Message);
-end;
 
-
+  // Показать результат
   ShowMessage('Вы набрали ' + IntToStr(score) + ' из 20 баллов.');
+//FormJournal.Show;
 end;
+
 
 end.

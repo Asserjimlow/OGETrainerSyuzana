@@ -1,4 +1,4 @@
-program OGETrainer;
+program KodirovanieInfo;
 
 uses
   Forms,
